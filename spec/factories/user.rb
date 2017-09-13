@@ -5,5 +5,9 @@ FactoryGirl.define do
     email       { Faker::Internet.unique.email }
     picture_url { Faker::Internet.url }
     atelier_url { Faker::Internet.unique.url }
+
+    after(:create) do |user|
+      create(:credit_card_token, user: user)
+    end
   end
 end

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   subject { FactoryGirl.build(:user) }
 
+  it { should have_many(:credit_card_tokens).dependent(:destroy) }
   it { should have_secure_password }
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }

@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912145116) do
+ActiveRecord::Schema.define(version: 20170913112323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
   enable_extension "pgcrypto"
+
+  create_table "credit_card_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "token", null: false
+    t.uuid "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_credit_card_tokens_on_user_id"
+  end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
@@ -29,4 +37,5 @@ ActiveRecord::Schema.define(version: 20170912145116) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "credit_card_tokens", "users"
 end
