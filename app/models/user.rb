@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :credit_card_tokens, dependent: :destroy
+  has_many :shipping_addresses, dependent: :destroy
   has_secure_password
 
   validates :first_name, :last_name, :email, :picture_url, :is_designer, presence: true

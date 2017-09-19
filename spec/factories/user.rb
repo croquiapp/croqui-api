@@ -8,6 +8,7 @@ FactoryGirl.define do
 
     after(:create) do |user|
       create(:credit_card_token, user: user)
+      create(:shipping_address, user: user)
     end
   end
 end
