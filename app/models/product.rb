@@ -1,4 +1,3 @@
 class Product < ApplicationRecord
-  validate :price, :title, :description, :images_url, presence: true
-
+  validates :price, :title, :description, :images_url, presence: true
 end
