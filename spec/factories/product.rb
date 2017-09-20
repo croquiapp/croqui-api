@@ -6,5 +6,9 @@ FactoryGirl.define do
     title       { Faker::Name.title }
     description { Faker::StarWars.quote }
     images_url  { Faker::Internet.unique.url }
+
+    after(:create) do |product|
+      create(:campaign, product: product)
+    end
   end
 end

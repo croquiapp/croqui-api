@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919164229) do
+ActiveRecord::Schema.define(version: 20170920124920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
   enable_extension "pgcrypto"
+
+  create_table "campaigns", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "description"
+    t.datetime "finished_at"
+    t.integer "min_buyers"
+    t.integer "total_buyers", default: 0
+    t.boolean "successful"
+    t.uuid "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_campaigns_on_product_id"
+  end
 
   create_table "credit_card_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "token", null: false
@@ -62,6 +74,7 @@ ActiveRecord::Schema.define(version: 20170919164229) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "campaigns", "products"
   add_foreign_key "credit_card_tokens", "users"
   add_foreign_key "shipping_addresses", "users"
 end

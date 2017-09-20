@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   subject { FactoryGirl.build(:product) }
   
+  it { should have_many(:campaigns) }
   it { should monetize(:price) }
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:description) }

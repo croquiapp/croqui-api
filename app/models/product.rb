@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  has_many :campaigns
+
   monetize :price_cents, with_model_currency: :price_currency
   validates :price, :title, :description, :images_url, presence: true
 
